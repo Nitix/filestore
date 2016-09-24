@@ -1,5 +1,5 @@
-# Introduction
+# Le projet de Miage M2 2015 : filestore
 
-Ce projet est réalisé pour le cours. 
+Le projet consiste à écrire une application de partage de fichier en ligne qui sera, à terme, hébergé dans le cloud.
 
-Ce site permettra de partager des fichiers
+Cette application à pour but de mettre en oeuvre les architecture à composants, les middleware, les web services, les technologies XaaS, le tout dans un environnement de développement piloté par les tests et géré par des outils standard de génie logiciel.
