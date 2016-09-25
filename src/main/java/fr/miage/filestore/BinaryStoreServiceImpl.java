@@ -27,7 +27,7 @@ public class BinaryStoreServiceImpl implements BinaryStoreService {
 
     @Override
     public InputStream get(String key) throws BinaryStoreServiceException, BinaryStreamNotFoundException {
-        if(!data.containsKey(key)){
+        if(!exists(key)){
             throw new BinaryStreamNotFoundException();
         }
         return data.get(key);
