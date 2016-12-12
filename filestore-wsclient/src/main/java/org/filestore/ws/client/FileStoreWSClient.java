@@ -9,16 +9,19 @@ import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.xml.ws.soap.MTOMFeature;
 
+import com.sun.xml.internal.fastinfoset.util.StringArray;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.filestore.api.FileData;
+import org.filestore.api.FileServiceException;
 
 public class FileStoreWSClient {
 
-	public static void main(String args[]) throws ParseException, FileServiceException_Exception, IOException {
+	public static void main(String args[]) throws ParseException, FileServiceException, IOException {
 		Options options = new Options();
 		options.addOption("s", "sender", true, "sender email adresse");
 		Option r = new Option("r", "receivers", true, "receivers email adresses (coma separated)");

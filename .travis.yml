@@ -1,0 +1,10 @@
+language: java
+sudo: false
+jdk:
+  - oraclejdk8
+script:
+  - mvn clean verify
+cache:
+  directories:
+  - .autoconf
+  - $HOME/.m2

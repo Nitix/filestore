@@ -18,6 +18,10 @@
 			<scope>compile</scope>
 			<type>jar</type>
 		</dependency>
+		<dependency>
+			<groupId>fr.miage.jayblanc</groupId>
+			<artifactId>filestore-api</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
