@@ -14,6 +14,7 @@ public class FileStoreApplication extends Application {
 	public FileStoreApplication() {
 		classes.add(FileItemsResource.class);
 		classes.add(FileMetricsResource.class);
+		classes.add(Authenticate.class);
 	}
 
 	@Override
