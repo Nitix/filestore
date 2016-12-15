@@ -20,7 +20,7 @@ public class Google extends Generic {
 
     @Override
     protected String getScope() {
-        return "userinfo.email";
+        return "https://www.googleapis.com/auth/userinfo.email";
     }
 
     @Override
