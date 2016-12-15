@@ -42,6 +42,7 @@ public abstract class Generic {
                 .setClientSecret(getClientSecret())
                 .setRedirectURI(getRedirectUri())
                 .setCode(code)
+                .setParameter("Content-Length", ""+0)
                 .buildQueryMessage();
     }
 
