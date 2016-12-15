@@ -13,7 +13,9 @@ import org.xml.sax.SAXException;
 
 import javax.enterprise.context.RequestScoped;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -113,5 +115,10 @@ public class Authenticate {
                 throw new UnimplementedProviderException("The provider is unimplemented, gg");
         }
         return providerObject;
+    }
+
+    @Path("/postfiles")
+    public void redirectTo(@Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException {
+        context.getRequestDispatcher("/WEB-INF/postfile.jsp").forward( request, response );
     }
 }
