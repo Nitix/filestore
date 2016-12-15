@@ -4,6 +4,7 @@ import org.apache.oltu.oauth2.client.request.OAuthClientRequest;
 import org.apache.oltu.oauth2.common.OAuthProviderType;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 import org.apache.oltu.oauth2.common.message.types.GrantType;
+import org.apache.oltu.oauth2.common.message.types.ResponseType;
 
 import javax.annotation.Resource;
 
@@ -28,6 +29,7 @@ public abstract class Generic {
                 .setClientId(getClientId())
                 .setRedirectURI(getRedirectUri())
                 .setScope(getScope())
+                .setResponseType(ResponseType.CODE.toString())
                 .buildQueryMessage();
     }
 
