@@ -12,6 +12,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.HashMap;
 
 /**
@@ -23,7 +25,7 @@ public class Configuration {
 
     public Configuration() throws IOException, SAXException, ParserConfigurationException {
 
-        File fXmlFile = new File("oauth2-configuration.xml");
+        InputStream fXmlFile = this.getClass().getResourceAsStream("/oauth2-configuration.xml");
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.parse(fXmlFile);

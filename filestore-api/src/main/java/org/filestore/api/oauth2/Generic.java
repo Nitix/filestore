@@ -5,6 +5,8 @@ import org.apache.oltu.oauth2.common.OAuthProviderType;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 import org.apache.oltu.oauth2.common.message.types.GrantType;
 
+import javax.annotation.Resource;
+
 /**
  * Created by nitix on 14/12/16.
  */
