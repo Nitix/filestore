@@ -21,36 +21,9 @@
             Authenticate yourself
         </h1>
     </div>
-    <button><a href="api/authentification/login/github">Se connecter avec github</a></button>
-    <!--
-    <form class="form-horizontal" action="./api/authentification" method="post"
-          enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="provider" class="col-sm-2 control-label">Provider :</label>
-            <div class="col-sm-10">
-                <input class="form-control" id="provider"
-                       name="provider">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="user" class="col-sm-2 control-label">Name : </label>
-            <div class="col-sm-10">
-                <input class="form-control" id="user" name="user">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="mdp" class="col-sm-2 control-label">MDP : </label>
-            <div class="col-sm-10">
-                <input type="password" class="form-control" rows="3" id="mdp" name="mdp"></input>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Authentification</button>
-            </div>
-        </div>
-    </form>
-    -->
+    <button><a href="api/authentification/login/github">Se connecter avec Github</a></button>
+    <button><a href="api/authentification/login/facebook">Se connecter avec Facebook</a></button>
+    <button><a href="api/authentification/login/google">Se connecter avec Google</a></button>
 </div>
 <script
         src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
