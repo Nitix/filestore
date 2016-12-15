@@ -50,7 +50,6 @@ public abstract class Generic {
         return configuration.getProviderConfiguration(getProvider()).getClientId();
     }
 
-
     protected String getClientSecret() {
         return configuration.getProviderConfiguration(getProvider()).getClientSecret();
     }
