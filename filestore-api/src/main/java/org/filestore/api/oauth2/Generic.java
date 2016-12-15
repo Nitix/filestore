@@ -36,7 +36,7 @@ public abstract class Generic {
     }
 
     public OAuthClientRequest createTokenRequest(String code) throws OAuthSystemException {
-        return OAuthClientRequest.tokenProvider(OAuthProviderType.GITHUB)
+        return OAuthClientRequest.tokenProvider(getProvider())
                 .setGrantType(GrantType.AUTHORIZATION_CODE)
                 .setClientId(getClientId())
                 .setClientSecret(getClientSecret())
