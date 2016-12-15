@@ -77,7 +77,7 @@ public class Authenticate {
             OAuthClientRequest request = providerObject.createTokenRequest(code);
 
             String accessToken = null;
-            if(provider.equals("github")){
+            if(provider.equals("github") || provider.equals("facebook")){
                 GitHubTokenResponse gitoAuthResponse = oAuthClient.accessToken(request, GitHubTokenResponse.class);
                 accessToken = gitoAuthResponse.getAccessToken();
             }
