@@ -19,6 +19,11 @@
 			<artifactId>javaee-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.oltu.oauth2</groupId>
+			<artifactId>org.apache.oltu.oauth2.client</artifactId>
+			<version>${version.apache.oltu}</version>
+		</dependency>
 	</dependencies>
 
 	<build>

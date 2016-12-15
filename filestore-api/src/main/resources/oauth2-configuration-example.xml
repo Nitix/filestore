@@ -1,0 +1,14 @@
+<providers>
+    <configuration>
+        <provider>github</provider>
+        <clientId>client-id</clientId>
+        <clientSecrect>top-secret-mdp</clientSecrect>
+        <redirectUri>http://example.com/redirect</redirectUri>
+    </configuration>
+    <configuration>
+        <provider>facebook</provider>
+        <clientId>client-id</clientId>
+        <clientSecrect>top-secret-mdp</clientSecrect>
+        <redirectUri>http://example.com/redirect</redirectUri>
+    </configuration>
+</providers>

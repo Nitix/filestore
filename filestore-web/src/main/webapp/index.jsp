@@ -21,6 +21,8 @@
             Authenticate yourself
         </h1>
     </div>
+    <button><a href="api/authentification/login/github">Se connecter avec github</a></button>
+    <!--
     <form class="form-horizontal" action="./api/authentification" method="post"
           enctype="multipart/form-data">
         <div class="form-group">
@@ -48,6 +50,7 @@
             </div>
         </div>
     </form>
+    -->
 </div>
 <script
         src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

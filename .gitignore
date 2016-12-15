@@ -4,3 +4,5 @@ target
 .project
 .settings
 *.log
+
+filestore-api/src/main/resources/oauth2-configuration.xml
