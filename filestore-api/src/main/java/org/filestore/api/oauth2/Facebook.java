@@ -43,7 +43,6 @@ public class Facebook extends Generic {
 
     @Override
     public String getUserEmail(String token) throws IOException {
-        Logger LOGGER = Logger.getLogger(Facebook.class.getName());
         OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
         OAuthClientRequest bearerClientRequest = null;
         OAuthResourceResponse resourceResponse = null;
