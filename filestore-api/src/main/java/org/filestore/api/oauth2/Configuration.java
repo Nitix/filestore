@@ -42,7 +42,7 @@ public class Configuration {
 
                 Element eElement = (Element) nNode;
 
-                OAuthProviderType provider  = OAuthProviderType.valueOf(eElement.getElementsByTagName("provider").item(0).getTextContent());
+                OAuthProviderType provider  = OAuthProviderType.valueOf(eElement.getElementsByTagName("provider").item(0).getTextContent().toUpperCase());
                 this.configurations.put(provider, new ProviderConfiguration(
                         provider,
                         eElement.getElementsByTagName("clientId").item(0).getTextContent(),
