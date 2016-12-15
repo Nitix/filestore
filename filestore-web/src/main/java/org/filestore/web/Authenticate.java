@@ -4,11 +4,11 @@ import org.apache.oltu.oauth2.client.OAuthClient;
 import org.apache.oltu.oauth2.client.URLConnectionClient;
 import org.apache.oltu.oauth2.client.request.OAuthClientRequest;
 import org.apache.oltu.oauth2.client.response.GitHubTokenResponse;
+import org.apache.oltu.oauth2.common.OAuthProviderType;
 import org.apache.oltu.oauth2.common.exception.OAuthProblemException;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
-import org.filestore.api.oauth2.Configuration;
-import org.filestore.api.oauth2.Generic;
-import org.filestore.api.oauth2.Github;
+import org.filestore.api.exception.UnimplementedProviderException;
+import org.filestore.api.oauth2.*;
 import org.xml.sax.SAXException;
 
 import javax.enterprise.context.RequestScoped;
@@ -39,23 +39,35 @@ public class Authenticate {
 
     @GET
     @Path("/login/{provider}")
-    public Response redirectLogin(@PathParam("provider") String provider) {
+    public Response redirectLogin(@PathParam("provider") String provider) throws UnimplementedProviderException {
         try {
-            Github github = new Github(new Configuration());
-            OAuthClientRequest request = github.createCodeRequest();
-
+            Generic providerObject = null;
+            OAuthClientRequest request = null;
+            switch(OAuthProviderType.valueOf(provider.toUpperCase())) {
+                case GITHUB:
+                    providerObject = new Github(new Configuration());
+                    break;
+                case FACEBOOK:
+                    providerObject = new Facebook(new Configuration());
+                    break;
+                case GOOGLE:
+                    providerObject = new Google(new Configuration());
+                    break;
+                default: // should never go here
+                    throw new UnimplementedProviderException("The provider is unimplemented, gg");
+            }
+            request = providerObject.createCodeRequest();
             return Response.seeOther(URI.create(request.getLocationUri())).build();
         } catch (OAuthSystemException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
             e.printStackTrace();
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
         }
         return Response.serverError().build();
-
     }
 
     @GET
