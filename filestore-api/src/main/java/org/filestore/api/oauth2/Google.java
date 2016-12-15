@@ -1,7 +1,10 @@
 package org.filestore.api.oauth2;
 
 import com.google.gson.Gson;
+import org.apache.oltu.oauth2.client.request.OAuthClientRequest;
 import org.apache.oltu.oauth2.common.OAuthProviderType;
+import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
+import org.apache.oltu.oauth2.common.message.types.GrantType;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,6 +21,17 @@ public class Google extends Generic {
 
     public Google(Configuration configuration) {
         super(configuration);
+    }
+
+    @Override
+    public OAuthClientRequest createTokenRequest(String code) throws OAuthSystemException {
+        return OAuthClientRequest.tokenProvider(getProvider())
+                .setGrantType(GrantType.AUTHORIZATION_CODE)
+                .setClientId(getClientId())
+                .setClientSecret(getClientSecret())
+                .setRedirectURI(getRedirectUri())
+                .setCode(code)
+                .buildBodyMessage();
     }
 
     @Override

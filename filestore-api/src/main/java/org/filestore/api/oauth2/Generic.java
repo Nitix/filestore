@@ -42,16 +42,15 @@ public abstract class Generic {
                 .setClientSecret(getClientSecret())
                 .setRedirectURI(getRedirectUri())
                 .setCode(code)
-                .setParameter("Content-Length", ""+0)
                 .buildQueryMessage();
     }
 
 
-    private String getRedirectUri() {
+    protected String getRedirectUri() {
         return configuration.getProviderConfiguration(getProvider()).getRedirectUri();
     }
 
-    private String getClientId() {
+    protected String getClientId() {
         return configuration.getProviderConfiguration(getProvider()).getClientId();
     }
 
