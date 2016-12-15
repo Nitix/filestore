@@ -5,4 +5,7 @@ target
 .settings
 *.log
 
+.idea/
+*.iml
+
 filestore-api/src/main/resources/oauth2-configuration.xml

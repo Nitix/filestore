@@ -39,32 +39,22 @@ public class Authenticate {
 
     @GET
     @Path("/login/{provider}")
-    public Response redirectLogin(@PathParam("provider") String provider) throws UnimplementedProviderException {
+    public Response redirectLogin(@PathParam("provider") String provider, @Context HttpServletRequest httpRequest) throws UnimplementedProviderException {
         try {
-            Generic providerObject = null;
-            OAuthClientRequest request = null;
-            switch(OAuthProviderType.valueOf(provider.toUpperCase())) {
-                case GITHUB:
-                    providerObject = new Github(new Configuration());
-                    break;
-                case FACEBOOK:
-                    providerObject = new Facebook(new Configuration());
-                    break;
-                case GOOGLE:
-                    providerObject = new Google(new Configuration());
-                    break;
-                default: // should never go here
-                    throw new UnimplementedProviderException("The provider is unimplemented, gg");
-            }
-            request = providerObject.createCodeRequest();
+            HttpSession session = httpRequest.getSession();
+            session.setAttribute("provider", provider);
+
+            Generic providerObject = getGenericObject(provider);
+            OAuthClientRequest request = providerObject.createCodeRequest();
+
             return Response.seeOther(URI.create(request.getLocationUri())).build();
         } catch (OAuthSystemException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
             e.printStackTrace();
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
             e.printStackTrace();
         }
         return Response.serverError().build();
@@ -72,19 +62,21 @@ public class Authenticate {
 
     @GET
     @Path("/redirect")
-    public Response getAuthentification(@QueryParam("code") String code, @Context HttpServletRequest httpRequest) {
+    public Response getAuthentification(@QueryParam("code") String code, @Context HttpServletRequest httpRequest) throws UnimplementedProviderException {
         try {
+            HttpSession session = httpRequest.getSession();
+            String provider = (String) session.getAttribute("provider");
+
+            Generic providerObject = getGenericObject(provider);
+
             //create OAuth client that uses custom http client under the hood
             OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
-            Generic github = new Github(new Configuration());
-            OAuthClientRequest request = github.createTokenRequest(code);
+            OAuthClientRequest request = providerObject.createTokenRequest(code);
 
             GitHubTokenResponse oAuthResponse = oAuthClient.accessToken(request, GitHubTokenResponse.class);
 
             String accessToken = oAuthResponse.getAccessToken();
             //long expiresIn = oAuthResponse.getExpiresIn();
-
-            HttpSession session = httpRequest.getSession();
 
             session.setAttribute("token-value", accessToken);
             //session.setAttribute("token-expire", expiresIn);
@@ -102,6 +94,23 @@ public class Authenticate {
             e.printStackTrace();
         }
         return Response.serverError().build();
+    }
 
+    private Generic getGenericObject(String provider) throws ParserConfigurationException, SAXException, IOException, UnimplementedProviderException {
+        Generic providerObject = null;
+        switch(OAuthProviderType.valueOf(provider.toUpperCase())) {
+            case GITHUB:
+                providerObject = new Github(new Configuration());
+                break;
+            case FACEBOOK:
+                providerObject = new Facebook(new Configuration());
+                break;
+            case GOOGLE:
+                providerObject = new Google(new Configuration());
+                break;
+            default: // should never go here
+                throw new UnimplementedProviderException("The provider is unimplemented, gg");
+        }
+        return providerObject;
     }
 }
