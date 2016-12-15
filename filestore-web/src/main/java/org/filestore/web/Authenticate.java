@@ -83,6 +83,7 @@ public class Authenticate {
 
             LOGGER.log(Level.INFO, accessToken);
 
+            LOGGER.log(Level.INFO, providerObject.getUserEmail(accessToken));
             return Response.seeOther(URI.create("./postfiles")).build();
         } catch (OAuthSystemException | OAuthProblemException e) {
             e.printStackTrace();

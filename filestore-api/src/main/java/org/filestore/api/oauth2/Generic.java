@@ -7,6 +7,8 @@ import org.apache.oltu.oauth2.common.message.types.GrantType;
 import org.apache.oltu.oauth2.common.message.types.ResponseType;
 
 import javax.annotation.Resource;
+import java.io.IOException;
+import java.net.MalformedURLException;
 
 /**
  * Created by nitix on 14/12/16.
@@ -58,5 +60,5 @@ public abstract class Generic {
 
     protected abstract String getScope();
 
-    public abstract String getUserEmail();
+    public abstract String getUserEmail(String token) throws IOException;
 }

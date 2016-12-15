@@ -24,7 +24,7 @@ public class Google extends Generic {
     }
 
     @Override
-    public String getUserEmail() {
+    public String getUserEmail(String token) {
         return null;
     }
 }
