@@ -21,9 +21,9 @@
             Authenticate yourself
         </h1>
     </div>
-    <button><a href="api/authentification/login/github">Se connecter avec Github</a></button>
-    <button><a href="api/authentification/login/facebook">Se connecter avec Facebook</a></button>
-    <button><a href="api/authentification/login/google">Se connecter avec Google</a></button>
+    <p><a href="api/authentification/login/github" class="btn btn-primary"><span class="glyphicon glyphicon-user"></span> Se connecter via Github</a></p>
+    <p><a href="api/authentification/login/facebook" class="btn btn-primary"><span class="glyphicon glyphicon-user"></span> Se connecter via Facebook</a></p>
+    <p><a href="api/authentification/login/google" class="btn btn-primary"><span class="glyphicon glyphicon-user"></span> Se connecter via Google </a></p>
 </div>
 <script
         src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
