@@ -70,7 +70,7 @@ public class FileItemsResource {
 		
 		Map<String, List<InputPart>> form = input.getFormDataMap();
 		
-		String owner = (String) httpRequest.getSession().getAttribute("email");
+		String owner = (String) httpRequest.getSession().getAttribute("userEmail");
 		List<String> receivers = new ArrayList<String> ();
 		if ( !form.containsKey("receivers") ) {
 			return Response.status(Response.Status.BAD_REQUEST).entity("parameter 'receivers' is mandatory").build();
