@@ -1,0 +1,20 @@
+<providers>
+    <configuration>
+        <provider>github</provider>
+        <clientId>fbb405a2d8aaef7fef52</clientId>
+        <clientSecrect>0fc2d0d3b5386b39cb884b50616f1474a6f28f39</clientSecrect>
+        <redirectUri>http://app.guillaumepierson.fr:8080/api/authentification/redirect</redirectUri>
+    </configuration>
+    <configuration>
+        <provider>google</provider>
+        <clientId>649063023847-760g6rhrn180s8ju5kjs0q4ah6694ve5.apps.googleusercontent.com</clientId>
+        <clientSecrect>0Gt-Tf24_XpWENhRNphymF2H</clientSecrect>
+        <redirectUri>http://app.guillaumepierson.fr:8080/api/authentification/redirect</redirectUri>
+    </configuration>
+    <configuration>
+        <provider>facebook</provider>
+        <clientId>1005105422954897</clientId>
+        <clientSecrect>080a4f95ab22d430df48ad3fda1a26d4</clientSecrect>
+        <redirectUri>http://app.guillaumepierson.fr:8080/api/authentification/redirect</redirectUri>
+    </configuration>
+</providers>

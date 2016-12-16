@@ -9,14 +9,16 @@ import org.apache.oltu.oauth2.common.OAuthProviderType;
 import org.apache.oltu.oauth2.common.exception.OAuthProblemException;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 import org.filestore.api.exception.UnimplementedProviderException;
-import org.filestore.api.oauth2.*;
+import org.filestore.api.oauth2.Facebook;
+import org.filestore.api.oauth2.GenericOAuth;
+import org.filestore.api.oauth2.Github;
+import org.filestore.api.oauth2.Google;
 import org.xml.sax.SAXException;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -25,7 +27,6 @@ import javax.ws.rs.core.Response;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.net.URI;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -39,6 +40,15 @@ public class Authenticate {
     private static final Logger LOGGER = Logger.getLogger(FileItemsResource.class.getName());
     @Context ServletContext context ;
 
+    @EJB
+    private Facebook facebook;
+
+    @EJB
+    private Github github;
+
+    @EJB
+    private Google google;
+
 
     @GET
     @Path("/login/{provider}")
@@ -47,7 +57,7 @@ public class Authenticate {
             HttpSession session = httpRequest.getSession();
             session.setAttribute("provider", provider);
 
-            Generic providerObject = getGenericObject(provider);
+            GenericOAuth providerObject = getGenericObject(provider);
             OAuthClientRequest request = providerObject.createCodeRequest();
 
             return Response.seeOther(URI.create(request.getLocationUri())).build();
@@ -70,7 +80,7 @@ public class Authenticate {
             HttpSession session = httpRequest.getSession();
             String provider = (String) session.getAttribute("provider");
 
-            Generic providerObject = getGenericObject(provider);
+            GenericOAuth providerObject = getGenericObject(provider);
 
             //create OAuth client that uses custom http client under the hood
             OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
@@ -104,17 +114,17 @@ public class Authenticate {
         return Response.serverError().build();
     }
 
-    private Generic getGenericObject(String provider) throws ParserConfigurationException, SAXException, IOException, UnimplementedProviderException {
-        Generic providerObject = null;
+    private GenericOAuth getGenericObject(String provider) throws ParserConfigurationException, SAXException, IOException, UnimplementedProviderException {
+        GenericOAuth providerObject = null;
         switch(OAuthProviderType.valueOf(provider.toUpperCase())) {
             case GITHUB:
-                providerObject = new Github();
+                providerObject = github;
                 break;
             case FACEBOOK:
-                providerObject = new Facebook();
+                providerObject = facebook;
                 break;
             case GOOGLE:
-                providerObject = new Google();
+                providerObject = google;
                 break;
             default: // should never go here
                 throw new UnimplementedProviderException("The provider is unimplemented, gg");
