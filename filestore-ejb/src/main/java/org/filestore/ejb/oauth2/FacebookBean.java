@@ -53,7 +53,7 @@ public class FacebookBean extends GenericOAuthBean implements Facebook {
             return (String) jsonObj.get("email");
         }
         else{
-            return "defaultemail@default.com";
+            return null;
         }
     }
 }
