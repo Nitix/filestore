@@ -90,9 +90,7 @@ public class Authenticate {
             session.setAttribute("token-value", accessToken);
             //session.setAttribute("token-expire", expiresIn);
 
-            LOGGER.log(Level.INFO, accessToken);
-
-            LOGGER.log(Level.INFO, providerObject.getUserEmail(accessToken));
+            session.setAttribute("userEmail", providerObject.getUserEmail(accessToken));
             return Response.seeOther(URI.create("./files/postfile")).build();
         } catch (OAuthSystemException | OAuthProblemException e) {
             e.printStackTrace();
@@ -110,13 +108,13 @@ public class Authenticate {
         Generic providerObject = null;
         switch(OAuthProviderType.valueOf(provider.toUpperCase())) {
             case GITHUB:
-                providerObject = new Github(new Configuration());
+                providerObject = new Github();
                 break;
             case FACEBOOK:
-                providerObject = new Facebook(new Configuration());
+                providerObject = new Facebook();
                 break;
             case GOOGLE:
-                providerObject = new Google(new Configuration());
+                providerObject = new Google();
                 break;
             default: // should never go here
                 throw new UnimplementedProviderException("The provider is unimplemented, gg");
