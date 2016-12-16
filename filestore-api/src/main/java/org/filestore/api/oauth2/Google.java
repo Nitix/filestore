@@ -19,10 +19,6 @@ public class Google extends Generic {
 
     private static final OAuthProviderType PROVIDER = OAuthProviderType.GOOGLE;
 
-    public Google(Configuration configuration) {
-        super(configuration);
-    }
-
     @Override
     public OAuthClientRequest createTokenRequest(String code) throws OAuthSystemException {
         return OAuthClientRequest.tokenProvider(getProvider())

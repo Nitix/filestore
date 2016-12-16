@@ -27,10 +27,6 @@ public class Facebook extends Generic {
 
     private static final OAuthProviderType PROVIDER = OAuthProviderType.FACEBOOK;
 
-    public Facebook(Configuration configuration) {
-        super(configuration);
-    }
-
     @Override
     public OAuthProviderType getProvider() {
         return PROVIDER;

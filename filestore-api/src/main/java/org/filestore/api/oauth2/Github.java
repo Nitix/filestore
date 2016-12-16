@@ -18,10 +18,6 @@ public class Github extends Generic {
 
     private static final OAuthProviderType PROVIDER = OAuthProviderType.GITHUB;
 
-    public Github(Configuration configuration) {
-        super(configuration);
-    }
-
     @Override
     public OAuthProviderType getProvider() {
         return PROVIDER;

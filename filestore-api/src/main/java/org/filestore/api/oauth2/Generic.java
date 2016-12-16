@@ -15,11 +15,8 @@ import java.net.MalformedURLException;
  */
 public abstract class Generic {
 
+    @Resource
     protected Configuration configuration;
-
-    public Generic(Configuration configuration) {
-        this.configuration = configuration;
-    }
 
     public static final String scope = "email";
 

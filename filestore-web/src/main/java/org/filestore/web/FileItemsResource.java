@@ -13,6 +13,9 @@ import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -20,6 +23,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -124,5 +128,10 @@ public class FileItemsResource {
 		LOGGER.log(Level.INFO, "DELETE /files/" + key);
 		fileServiceAdmin.deleteFile(key);
 	}
-	
+
+	@GET
+	@Path("/postfile")
+	public void redirectTo(@Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/WEB-INF/postfile.jsp").forward( request, response );
+	}
 }
