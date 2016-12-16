@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -47,9 +48,9 @@ public class FileStoreClient {
 
     @Resource(lookup = "java:comp/InAppClientContainer")
     private static boolean isInAppclient;
+
     @EJB
     private static FileService service;
-
 
     @EJB
     private static Facebook facebook;
@@ -80,6 +81,46 @@ public class FileStoreClient {
         return service;
     }
 
+
+    public Facebook getFacebookRemote() throws NamingException {
+        if (!Boolean.TRUE.equals(isInAppclient) && facebook == null) {
+            LOGGER.log(Level.INFO, "getting Facebook using remote-naming");
+            final Properties env = new Properties();
+            env.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.remote.client.InitialContextFactory");
+            env.put(Context.PROVIDER_URL, "http-remoting://" + host + ":8080");
+            InitialContext context = new InitialContext(env);
+            facebook = (Facebook) context.lookup("ejb:filestore-ear/filestore-ejb/facebook!org.filestore.ejb.oauth2.Facebook");
+            context.close();
+        }
+        return facebook;
+    }
+
+    public Github getGithubRemote() throws NamingException {
+        if (!Boolean.TRUE.equals(isInAppclient) && github == null) {
+            LOGGER.log(Level.INFO, "getting github using remote-naming");
+            final Properties env = new Properties();
+            env.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.remote.client.InitialContextFactory");
+            env.put(Context.PROVIDER_URL, "http-remoting://" + host + ":8080");
+            InitialContext context = new InitialContext(env);
+            github = (Github) context.lookup("ejb:filestore-ear/filestore-ejb/github!org.filestore.ejb.oauth2.Github");
+            context.close();
+        }
+        return github;
+    }
+
+    public Google getGoogleRemote() throws NamingException {
+        if (!Boolean.TRUE.equals(isInAppclient) && google == null) {
+            LOGGER.log(Level.INFO, "getting google using remote-naming");
+            final Properties env = new Properties();
+            env.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.remote.client.InitialContextFactory");
+            env.put(Context.PROVIDER_URL, "http-remoting://" + host + ":8080");
+            InitialContext context = new InitialContext(env);
+            google = (Google) context.lookup("ejb:filestore-ear/filestore-ejb/google!org.filestore.ejb.oauth2.Google");
+            context.close();
+        }
+        return google;
+    }
+
     public FileService getFileServiceEJB() throws NamingException {
         if (!Boolean.TRUE.equals(isInAppclient) && service == null) {
             LOGGER.log(Level.INFO, "getting FileSerive using ejb client");
@@ -100,8 +141,15 @@ public class FileStoreClient {
             LOGGER.log(Level.INFO, "We ARE in a client container");
         }
         byte[] content = Files.readAllBytes(file);
-        //getFileServiceEJB().postFile(owner, receivers, message, filename, content);
+        //getFileServiceRemote().postFile(owner, receivers, message, filename, content);
         getFileServiceRemote().postFile(owner, receivers, message, filename, content);
+    }
+
+    public void init() throws NamingException {
+        getFacebookRemote();
+        getGithubRemote();
+        getGoogleRemote();
+
     }
 
     public static void main(String args[]) throws FileServiceException,
@@ -147,8 +195,15 @@ public class FileStoreClient {
 
         GenericOAuth providerObject = null;
         try {
-            providerObject = getGenericObject(provider);
 
+            FileStoreClient client = new FileStoreClient(host);
+            client.init();
+
+            providerObject = client.getGenericObject(provider);
+
+            System.out.println("FileSe : " + service);
+            System.out.println("Github : " + github);
+            System.out.println("Provid : " + providerObject);
 
             //create OAuth client that uses custom http client under the hood
             OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
@@ -172,14 +227,14 @@ public class FileStoreClient {
                 throw new Exception();
             }
 
-            FileStoreClient client = new FileStoreClient(host);
             client.postFile(email, Arrays.asList(receivers), message, path.getFileName().toString(), path);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private static GenericOAuth getGenericObject(String provider) throws IOException, UnimplementedProviderException {
+
+    private GenericOAuth getGenericObject(String provider) throws IOException, UnimplementedProviderException {
         GenericOAuth providerObject = null;
         switch (OAuthProviderType.valueOf(provider.toUpperCase())) {
             case GITHUB:

@@ -13,7 +13,6 @@ import org.filestore.api.oauth2.Facebook;
 import org.json.JSONObject;
 
 import javax.ejb.Stateless;
-import javax.inject.Named;
 import java.io.IOException;
 
 /**
