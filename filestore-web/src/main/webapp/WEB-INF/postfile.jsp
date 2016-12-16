@@ -27,7 +27,7 @@
 				<label for="owner" class="col-sm-2 control-label">Your email</label>
 				<div class="col-sm-10">
 					<input type="email" class="form-control" id="owner" name="owner"
-						placeholder="your email adress...">
+						placeholder="your email adress..." value="<%= session.getAttribute("userEmail")%>">
 				</div>
 			</div>
 			<div class="form-group">
