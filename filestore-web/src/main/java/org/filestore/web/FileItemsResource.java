@@ -16,6 +16,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -127,6 +128,12 @@ public class FileItemsResource {
 	@GET
 	@Path("/postfile")
 	public void redirectTo(@Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/postfile.jsp").forward( request, response );
+		HttpSession session = request.getSession();
+		String tokenValue = (String) session.getAttribute("token-value");
+		if(!(tokenValue == null || tokenValue.equals(""))) {
+			request.getRequestDispatcher("/WEB-INF/postfile.jsp").forward(request, response);
+		}else{
+			request.getRequestDispatcher("/WEB-INF/errors/mail.jsp").forward(request, response);
+		}
 	}
 }
