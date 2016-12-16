@@ -95,7 +95,13 @@ public class Authenticate {
             //session.setAttribute("token-expire", expiresIn);
 
             session.setAttribute("userEmail", providerObject.getUserEmail(accessToken));
-            return Response.seeOther(URI.create("./files/postfile")).build();
+            if(providerObject.getUserEmail(accessToken) != null){
+                session.setAttribute("userEmail", providerObject.getUserEmail(accessToken));
+                return Response.seeOther(URI.create("./files/postfile")).build();
+            }else{
+                return Response.seeOther(URI.create("./error/mail")).build();
+            }
+
         } catch (OAuthSystemException | OAuthProblemException | IOException e) {
             e.printStackTrace();
         }
