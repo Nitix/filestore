@@ -61,13 +61,7 @@ public class Authenticate {
             OAuthClientRequest request = providerObject.createCodeRequest();
 
             return Response.seeOther(URI.create(request.getLocationUri())).build();
-        } catch (OAuthSystemException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (OAuthSystemException | IOException e) {
             e.printStackTrace();
         }
         return Response.serverError().build();
@@ -102,19 +96,13 @@ public class Authenticate {
 
             session.setAttribute("userEmail", providerObject.getUserEmail(accessToken));
             return Response.seeOther(URI.create("./files/postfile")).build();
-        } catch (OAuthSystemException | OAuthProblemException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (OAuthSystemException | OAuthProblemException | IOException e) {
             e.printStackTrace();
         }
         return Response.serverError().build();
     }
 
-    private GenericOAuth getGenericObject(String provider) throws ParserConfigurationException, SAXException, IOException, UnimplementedProviderException {
+    private GenericOAuth getGenericObject(String provider) throws IOException, UnimplementedProviderException {
         GenericOAuth providerObject = null;
         switch(OAuthProviderType.valueOf(provider.toUpperCase())) {
             case GITHUB:

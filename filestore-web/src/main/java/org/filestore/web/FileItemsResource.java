@@ -65,17 +65,12 @@ public class FileItemsResource {
 	
 	@POST
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response postFile(MultipartFormDataInput input) throws IOException, FileServiceException {
+	public Response postFile(MultipartFormDataInput input, @Context HttpServletRequest httpRequest) throws IOException, FileServiceException {
 		LOGGER.log(Level.INFO, "POST (multipart/form-data) /files");
 		
 		Map<String, List<InputPart>> form = input.getFormDataMap();
 		
-		String owner = null;
-		if ( !form.containsKey("owner") ) {
-			return Response.status(Response.Status.BAD_REQUEST).entity("parameter 'owner' is mandatory").build();
-		} else {
-			owner = form.get("owner").get(0).getBodyAsString();
-		}
+		String owner = (String) httpRequest.getSession().getAttribute("email");
 		List<String> receivers = new ArrayList<String> ();
 		if ( !form.containsKey("receivers") ) {
 			return Response.status(Response.Status.BAD_REQUEST).entity("parameter 'receivers' is mandatory").build();

@@ -44,7 +44,6 @@ public abstract class GenericOAuthBean implements GenericOAuth {
                 .buildQueryMessage();
     }
 
-
     protected String getRedirectUri() {
         return configuration.getProviderConfiguration(getProvider()).getRedirectUri();
     }

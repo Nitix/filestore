@@ -21,13 +21,12 @@
 				Send a new file
 			</h1>
 		</div>
-		<form class="form-horizontal" action="./api/files" method="post"
+		<form class="form-horizontal" action="../files" method="post"
 			enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="owner" class="col-sm-2 control-label">Your email</label>
 				<div class="col-sm-10">
-					<input type="email" class="form-control" id="owner" name="owner"
-						placeholder="your email adress..." value="<%= session.getAttribute("userEmail")%>">
+					<input type="email" class="form-control" disabled id="owner" value="<%= session.getAttribute("userEmail")%>">
 				</div>
 			</div>
 			<div class="form-group">
