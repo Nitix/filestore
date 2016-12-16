@@ -12,7 +12,8 @@
 </head>
 <body>
     <p>
-        Vous n'avez pas d'email spécifié. Impossible d'accéder au filestore.
+        Vous n'avez pas d'email spécifié dans le service appelé. Impossible d'accéder au filestore.
     </p>
+    <p><a href="/" class="btn btn-primary"><span class="glyphicon glyphicon-user"></span> Retour page d'accueil </a></p>
 </body>
 </html>

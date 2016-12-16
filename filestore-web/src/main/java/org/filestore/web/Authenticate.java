@@ -99,7 +99,7 @@ public class Authenticate {
                 session.setAttribute("userEmail", providerObject.getUserEmail(accessToken));
                 return Response.seeOther(URI.create("./files/postfile")).build();
             }else{
-                return Response.seeOther(URI.create("./error/mail")).build();
+                return Response.seeOther(URI.create("./errors/mail.jsp")).build();
             }
 
         } catch (OAuthSystemException | OAuthProblemException | IOException e) {
