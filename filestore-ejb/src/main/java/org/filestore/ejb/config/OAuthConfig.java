@@ -1,4 +1,4 @@
-package org.filestore.ejb.oauth2;
+package org.filestore.ejb.config;
 
 import org.apache.oltu.oauth2.common.OAuthProviderType;
 import org.w3c.dom.Document;
@@ -18,7 +18,7 @@ import java.util.HashMap;
 /**
  * Created by nitix on 14/12/16.
  */
-public class Configuration {
+public class OAuthConfig {
 
     private HashMap<OAuthProviderType, ProviderConfiguration> configurations = new HashMap<>();
 

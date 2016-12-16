@@ -6,9 +6,9 @@ import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 import org.apache.oltu.oauth2.common.message.types.GrantType;
 import org.apache.oltu.oauth2.common.message.types.ResponseType;
 import org.filestore.api.oauth2.GenericOAuth;
+import org.filestore.ejb.config.OAuthConfig;
 
 import javax.inject.Inject;
-import java.io.IOException;
 
 /**
  * Created by nitix on 14/12/16.
@@ -16,9 +16,10 @@ import java.io.IOException;
 public abstract class GenericOAuthBean implements GenericOAuth {
 
     @Inject
-    protected Configuration configuration;
+    protected  OAuthConfig configuration;
 
     public static final String scope = "email";
+
 
     public abstract OAuthProviderType getProvider();
 
@@ -41,6 +42,17 @@ public abstract class GenericOAuthBean implements GenericOAuth {
                 .setClientSecret(getClientSecret())
                 .setRedirectURI(getRedirectUri())
                 .setCode(code)
+                .buildQueryMessage();
+    }
+
+    @Override
+    public OAuthClientRequest createTokenRequest(String user, String password) throws OAuthSystemException {
+        return OAuthClientRequest.tokenProvider(getProvider())
+                .setGrantType(GrantType.PASSWORD)
+                .setClientId(getClientId())
+                .setClientSecret(getClientSecret())
+                .setUsername(user)
+                .setPassword(password)
                 .buildQueryMessage();
     }
 

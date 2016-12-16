@@ -19,4 +19,6 @@ public interface GenericOAuth  {
     OAuthClientRequest createTokenRequest(String code) throws OAuthSystemException;
 
     String getUserEmail(String token) throws IOException;
+
+    OAuthClientRequest createTokenRequest(String user, String password) throws OAuthSystemException;
 }

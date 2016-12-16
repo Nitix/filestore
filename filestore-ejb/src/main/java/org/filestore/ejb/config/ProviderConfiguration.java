@@ -1,4 +1,4 @@
-package org.filestore.ejb.oauth2;
+package org.filestore.ejb.config;
 
 import org.apache.oltu.oauth2.common.OAuthProviderType;
 
