@@ -58,26 +58,13 @@ public class Google extends Generic {
         reader.close();
         System.out.println(outputString);
         GoogleAccount googleAccount = new Gson().fromJson(outputString.toString(), GoogleAccount.class);
-        String email = "";
-        for(GoogleAccount.GoogleEmail ge : googleAccount.emails) {
-            if(ge.type.equals("account")){
-                email = ge.value;
-                break;
-            }
-        }
-        return email;
+        return googleAccount.email;
     }
 
     private class GoogleAccount{
 
-        public GoogleEmail[] emails;
+        public String email;
 
-        private class GoogleEmail {
-            public String value;
-
-            public String type;
-
-        }
     }
 
 }
