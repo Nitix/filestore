@@ -93,7 +93,7 @@ public class Authenticate {
             LOGGER.log(Level.INFO, accessToken);
 
             LOGGER.log(Level.INFO, providerObject.getUserEmail(accessToken));
-            return Response.seeOther(URI.create("./postfiles")).build();
+            return Response.seeOther(URI.create("./files/postfile")).build();
         } catch (OAuthSystemException | OAuthProblemException e) {
             e.printStackTrace();
         } catch (SAXException e) {
@@ -122,10 +122,5 @@ public class Authenticate {
                 throw new UnimplementedProviderException("The provider is unimplemented, gg");
         }
         return providerObject;
-    }
-
-    @Path("/postfiles")
-    public void redirectTo(@Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException {
-        context.getRequestDispatcher("/WEB-INF/postfile.jsp").forward( request, response );
     }
 }
